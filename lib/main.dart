@@ -21,12 +21,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-void main() {
+void main() async {
+
+  // Load environment variables
+  await dotenv.load(fileName: ".env");
+  
   // Set up Dio
   final dio = Dio(BaseOptions(
-    baseUrl: 'https://jsonplaceholder.typicode.com/',
+    baseUrl: dotenv.env['BASE_URL'] ?? '',
     connectTimeout: const Duration(seconds: 5),
     receiveTimeout: const Duration(seconds: 5),
     sendTimeout: const Duration(seconds: 5),
